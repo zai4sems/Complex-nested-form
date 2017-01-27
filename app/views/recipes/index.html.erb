@@ -1,0 +1,17 @@
+<h1>List of Recipes</h1>
+
+<%= link_to 'Create', new_recipe_path %>
+
+<table>
+    <% @recipes.each do |recipe| %>
+    <tr>
+        <td><%= recipe.name %></td>
+            <% recipe.ingredients.each do |f| %>
+                <td><%= f.name %></td>
+                <td><%= f.price %></td>
+            <% end %>
+        <td><%= link_to 'Edit', edit_recipe_path(recipe.id) %></td>
+    </tr>
+    <% end %>
+</table>
+<%= params.inspect %>

@@ -12,5 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery_nested_form
+//= require cocoon
 //= require turbolinks
 //= require_tree .
+
+/*global $*/
+window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+  var $tr = $(link).closest('tr');
+  return $(content).insertBefore($tr);
+};

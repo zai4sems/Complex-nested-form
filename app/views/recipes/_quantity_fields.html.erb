@@ -1,0 +1,21 @@
+<tr class = "nested-fields quantity-fields">
+    <td class= "ingredient_from_list">
+        <%#= f.collection_select :ingredient_id, Ingredient.order(:name), :id, :name, {prompt: "Select an ingredient"}, {class: 'recipe_select'} %>
+        <%= f.select(:ingredient_id, Ingredient.order(:name).map{|a| [a.name, a.id, {'data-price' => a.price}]}, {prompt: "Select an ingredient"}, {class: 'recipe_select'}) %>
+    </td>
+    <td><%= f.number_field :amount, required: true%></td>
+        <%= f.fields_for :ingredient, Ingredient.new do |g| %>
+            <td class="fields"><%= g.number_field :price, required: true, class: 'price_text' %></td>
+        <% end %>
+    <td class="remove"><%= link_to_add_association 'or create new', f, :ingredient, data: {"association-insertion-node" => "tr.nested-fields", "association-insertion-traversal" => "closest", "association-insertion-method" => "prepend"}  %></td>
+    <td><%= link_to_remove_association "Remove", f %></td>
+</tr> 
+
+<script>
+     $('.recipe_select').on('change', function(){
+         var value = $(this).closest(".nested-fields");
+         //alert($(this).find(":selected").attr("data-price"));
+         $(value).find('.price_text').val($(this).find(":selected").attr("data-price"));
+         
+     });
+</script>
