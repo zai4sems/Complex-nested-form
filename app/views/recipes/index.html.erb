@@ -1,17 +1,32 @@
-<h1>List of Recipes</h1>
+<h1>List of Recipes <%= link_to 'Create', new_recipe_path, class: "btn btn-primary" %></h1>
 
-<%= link_to 'Create', new_recipe_path %>
 
-<table>
+
     <% @recipes.each do |recipe| %>
-    <tr>
-        <td><%= recipe.name %></td>
-            <% recipe.ingredients.each do |f| %>
-                <td><%= f.name %></td>
-                <td><%= f.price %></td>
-            <% end %>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe.id) %></td>
-    </tr>
+    <div class = "col-md-3">
+        <div class = "card" style = "width: 40rem;">
+            <div class = "card-block">
+                <% recipe = Recipe.includes(:quantities).find(recipe.id) %>
+                <h4><%= recipe.name %></h4>
+                <p class = "card-text">Ingredients</p>
+                <table class = "table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    <% recipe.quantities.each do |f| %>
+                        <tr>
+                            <td><%= f.ingredient_name %></td>
+                            <td><%= f.amount %></td>
+                            <td><%= number_to_currency(f.ingredient_price) %></td>
+                        </tr>
+                    <% end %>
+                </table>
+                    <%= link_to 'Edit', edit_recipe_path(recipe.id), class: "btn btn-primary" %>
+                    <%= link_to 'Delete', recipe_path(recipe), :method => 'delete', data: {confirm: "Are you sure?"}, class: "btn btn-danger" %>
+            </div>
+        </div>   
+    </div>
+    
     <% end %>
-</table>
-<%= params.inspect %>

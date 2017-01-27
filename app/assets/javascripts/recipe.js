@@ -12,9 +12,8 @@ var ready = function (){
      });
      
      $('.recipe_select').on('change', function(){
-         //var test = $(this).closest(".nested-fields");
-         alert('recipeJS');
-         //alert( $(this).find(":selected").val() );
+         //alert('recipeJS'); 
+         //only display without partial file
      });
 }
 

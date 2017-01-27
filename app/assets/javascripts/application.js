@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require tether
+//= require bootstrap
+//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require jquery_nested_form
 //= require cocoon
