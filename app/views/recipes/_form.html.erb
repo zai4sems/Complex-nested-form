@@ -1,3 +1,9 @@
+<% if @recipe.errors.any? %>
+    <% @recipe.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+<% end %>
+
 
 <%= form_for @recipe, html: {class: "form-group"} do |f| %>
     <%= f.label :recipe_name %>
@@ -14,16 +20,15 @@
         <tbody class = "quantities">
             <%= f.fields_for :quantities do |g| %>
                 <%#= render 'quantity_fields', f: g %>
-                <tr class = "existing-fields">
-                    <td>
-                        <%= g.select(:ingredient_id, Ingredient.order(:name).map{|a| [a.name, a.id, {'data-price' => a.price}]}, {prompt: "Select an ingredient"}, {class: 'recipe_select form-control'}) %>
-                    </td>
-                    <td><%= g.number_field :amount, class: "form-control" %></td>
+                <tr class = "existing-fields nested-fields">
+                    
                         <%= g.fields_for :ingredient do |h| %>
+                            <td><%= h.text_field :name, class: "form-control price_text" %></td>
+                            <td><%= g.number_field :amount, class: "form-control" %></td>
                             <td><%= h.number_field :price, class: "form-control price_text" %></td>
                         <% end %>
                     
-                    <td><%= link_to_remove_association "Remove", f %></td>
+                    <td><%= link_to_remove_association "Remove", g %></td>
                         
                 </tr> 
                 
@@ -42,7 +47,7 @@
 <script>
      $('.recipe_select').on('change', function(){
          var value = $(this).closest(".existing-fields");
-         alert($(this).find(":selected").attr("data-price"));
+         //alert($(this).find(":selected").attr("data-price"));
          $(value).find('.price_text').val($(this).find(":selected").attr("data-price"));
          
      });

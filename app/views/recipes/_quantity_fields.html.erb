@@ -1,12 +1,11 @@
 <tr class = "nested-fields quantity-fields">
     <td class= "ingredient_from_list">
-        <%#= f.collection_select :ingredient_id, Ingredient.order(:name), :id, :name, {prompt: "Select an ingredient"}, {class: 'recipe_select'} %>
+        <%#= f.collection_select :ingredient_id, Ingredient.order(:name), :id, :name, {prompt: "Select an ingredient"}, {class: 'recipe_select form-control'} %>
         <%= f.select(:ingredient_id, Ingredient.order(:name).map{|a| [a.name, a.id, {'data-price' => a.price}]}, {prompt: "Select an ingredient"}, {class: 'recipe_select form-control'}) %>
+        <%#= f.association :ingredient, collection: Ingredients.all(:order => 'name').map { |g| [g.name, g.id, {'data-price' => g.price}] }, :prompt => 'Choose an existing ingredient', label: false, input_html: {class:'form-control recipe_select', id:'recipe_select' } %>
+        <%#= f.association :ingredient_id, options_from_collection_for_select(Ingredient.order(:name).map{|a| [a.name, a.id, {'data-price' => a.price}]}, {prompt: "Select an ingredient"}, {class: 'recipe_select form-control'}, :id, :name, @recipe.ingredient_id) %>
     </td>
     <td><%= f.number_field :amount, required: true, class: "form-control" %></td>
-        <%= f.fields_for :ingredient, Ingredient.new do |g| %>
-            <td class="fields"><%= g.number_field :price, required: true, class: 'price_text form-control' %></td>
-        <% end %>
     <td class="remove"><%= link_to_add_association 'or create new', f, :ingredient, data: {"association-insertion-node" => "tr.nested-fields", "association-insertion-traversal" => "closest", "association-insertion-method" => "prepend"}  %></td>
     <td><%= link_to_remove_association "Remove", f %></td>
 </tr> 
