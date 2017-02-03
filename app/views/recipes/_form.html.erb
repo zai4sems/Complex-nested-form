@@ -11,8 +11,8 @@
     <table>
         <thead>
             <tr>
-                <th>Name</th>
                 <th>Quantity</th>
+                <th>Name</th>
                 <th>Price</th>
                 <th>Action</th>
             </tr>
@@ -23,8 +23,8 @@
                 <tr class = "existing-fields nested-fields">
                     
                         <%= g.fields_for :ingredient do |h| %>
-                            <td><%= h.text_field :name, class: "form-control price_text" %></td>
                             <td><%= g.number_field :amount, class: "form-control" %></td>
+                            <td><%= h.text_field :name, class: "form-control price_text" %></td>
                             <td><%= h.number_field :price, class: "form-control price_text" %></td>
                         <% end %>
                     
